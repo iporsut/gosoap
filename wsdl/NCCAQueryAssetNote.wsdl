@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsdLocal1="http://dtac.co.th/ncca/InboundQueryAssetNoteRequest" targetNamespace="http://dtac.co.th/ncca/InboundNCCAQueryAssetNote" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsdLocal2="http://dtac.co.th/ncca/InboundQueryAssetNoteResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://dtac.co.th/ncca/InboundNCCAQueryAssetNote">
+        <types>
+                <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://dtac.co.th/ncca/InboundQueryAssetNoteResponse" xmlns:xsdLocal2="http://dtac.co.th/ncca/InboundQueryAssetNoteResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <xsd:annotation>
+                                <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:element name="NCCAQueryAssetNoteResponse" type="xsdLocal2:NCCAQueryAssetNoteResponse"></xsd:element>
+                        <xsd:complexType name="NCCAQueryAssetNoteResponseTopElmt">
+                                <xsd:sequence>
+                                        <xsd:element name="NCCAQueryAssetNoteResponse" maxOccurs="1" minOccurs="1" type="xsdLocal2:NCCAQueryAssetNoteResponse"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="NCCAQueryAssetNoteResponse">
+                                <xsd:sequence>
+                                        <xsd:element name="MessageHeader" maxOccurs="1" minOccurs="1" type="xsdLocal2:MessageHeader"></xsd:element>
+                                        <xsd:element name="QueryAssetNoteRecord" maxOccurs="unbounded" minOccurs="0" type="xsdLocal2:QueryAssetNoteRecord"></xsd:element>
+                                        <xsd:element name="ResponseStatus" maxOccurs="1" minOccurs="1" type="xsdLocal2:ResponseStatus"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="MessageHeader">
+                                <xsd:sequence>
+                                        <xsd:element name="MessageId" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ReferenceKey" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="BusinessEvent" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SourceSystemID" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SentDateTime" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ResponseDateTime" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="IsAsyncRequest" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ResponseURL" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="QueryAssetNoteRecord">
+                                <xsd:sequence>
+                                        <xsd:element name="AssetNoteType" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNotePriority" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteRemarks" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteEndDate" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteCreateDate" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteCreateBy" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteLang" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteUpdateDate" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="AssetNoteUpdateBy" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="ResponseStatus">
+                                <xsd:sequence>
+                                        <xsd:element name="StatusCode" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ESBResponseCode" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ESBResponseMessage" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SystemID" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SystemResponseCode" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SystemResponseMessage" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                </xsd:schema>
+                <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsdLocal1="http://dtac.co.th/ncca/InboundQueryAssetNoteRequest" targetNamespace="http://dtac.co.th/ncca/InboundQueryAssetNoteRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <xsd:annotation>
+                                <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:element name="NCCAQueryAssetNoteRequest" type="xsdLocal1:NCCAQueryAssetNoteRequest"></xsd:element>
+                        <xsd:complexType name="NCCAQueryAssetNoteRequestTopElmt">
+                                <xsd:sequence>
+                                        <xsd:element name="NCCAQueryAssetNoteRequest" maxOccurs="1" minOccurs="1" type="xsdLocal1:NCCAQueryAssetNoteRequest"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="NCCAQueryAssetNoteRequest">
+                                <xsd:sequence>
+                                        <xsd:element name="MessageHeader" maxOccurs="1" minOccurs="1" type="xsdLocal1:MessageHeader"></xsd:element>
+                                        <xsd:element name="AssetNumber" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="CustomerNumber" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                        <xsd:complexType name="MessageHeader">
+                                <xsd:sequence>
+                                        <xsd:element name="MessageId" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ReferenceKey" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="BusinessEvent" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SourceSystemID" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="SentDateTime" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ResponseDateTime" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                        <xsd:element name="IsAsyncRequest" maxOccurs="1" minOccurs="1" type="xsd:string"></xsd:element>
+                                        <xsd:element name="ResponseURL" maxOccurs="1" minOccurs="0" type="xsd:string"></xsd:element>
+                                </xsd:sequence>
+                        </xsd:complexType>
+                </xsd:schema>
+                <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://dtac.co.th/ncca/InboundNCCAQueryAssetNote" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <xsd:import namespace="http://dtac.co.th/ncca/InboundQueryAssetNoteResponse"></xsd:import>
+                        <xsd:import namespace="http://dtac.co.th/ncca/InboundQueryAssetNoteRequest"></xsd:import>
+                        <xsd:element name="QueryAssetNote_Input">
+                                <xsd:complexType>
+                                        <xsd:sequence>
+                                                <xsd:element ref="xsdLocal1:NCCAQueryAssetNoteRequest"></xsd:element>
+                                        </xsd:sequence>
+                                </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="QueryAssetNote_Output">
+                                <xsd:complexType>
+                                        <xsd:sequence>
+                                                <xsd:element ref="xsdLocal2:NCCAQueryAssetNoteResponse"></xsd:element>
+                                        </xsd:sequence>
+                                </xsd:complexType>
+                        </xsd:element>
+                </xsd:schema>
+        </types>
+        <message name="QueryAssetNote_Input">
+                <part name="QueryAssetNote_Input" element="tns:QueryAssetNote_Input"></part>
+        </message>
+        <message name="QueryAssetNote_Output">
+                <part name="QueryAssetNote_Output" element="tns:QueryAssetNote_Output"></part>
+        </message>
+        <portType name="NCCAQueryAssetNotePort">
+                <operation name="QueryAssetNote">
+                        <input message="tns:QueryAssetNote_Input"></input>
+                        <output message="tns:QueryAssetNote_Output"></output>
+                </operation>
+        </portType>
+        <binding name="NCCAQueryAssetNotePort" type="tns:NCCAQueryAssetNotePort">
+                <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
+                <operation name="QueryAssetNote">
+                        <soap:operation soapAction="document/http://dtac.co.th/ncca/InboundNCCAQueryAssetNote:QueryAssetNote"></soap:operation>
+                        <input>
+                                <soap:body use="literal"></soap:body>
+                        </input>
+                        <output>
+                                <soap:body use="literal"></soap:body>
+                        </output>
+                </operation>
+        </binding>
+        <service name="NCCAQueryAssetNoteSOAP">
+                <port binding="tns:NCCAQueryAssetNotePort" name="NCCAQueryAssetNotePort">
+                        <soap:address location="http://saloon13-front.tac.co.th:15080/eai_nccassysint11/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;UserName=NCCAEAI&amp;Password=Nc2008ea"></soap:address>
+                </port>
+        </service>
+</definitions>

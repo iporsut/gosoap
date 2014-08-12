@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tuxtype="urn:pack.INReadNewCardWS_typedef.salt11" xmlns:tns="urn:INReadNewCardWS.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="INReadNewCardWS" targetNamespace="urn:INReadNewCardWS.wsdl">
+	<wsdl:documentation>Generated at 08-11-2014 17:56:39:267</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:pack.INReadNewCardWS_typedef.salt11">
+			<xsd:element name="ReadNewCardWS">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inbuf" type="tuxtype:fml32_ReadNewCardWS_In"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadNewCardWS_In">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="USER_CODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="RD_CARD__CARD_NUMB" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="SUBR_NUMB" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="BLPD_CODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="FUNC_ID" type="xsd:short"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="DMMY_ALLW_FLAG" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="999" minOccurs="0" name="CARD_NUMB" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="999" minOccurs="0" name="RD_CARD__LIVE_FLAG" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="ReadNewCardWSResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="outbuf" type="tuxtype:fml32_ReadNewCardWS_Out"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadNewCardWS_Out">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="TBL_OCCR" type="xsd:long"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="DEAL_NUMB" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="DEAL_NAME" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_CARD__DMMY_FLAG" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_CARD__ENCP_ADM" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CRNT_IMSI_NUMB" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="ReadNewCardWSFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="errbuf" type="tuxtype:fml32_ReadNewCardWS_Err"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadNewCardWS_Err">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="MESSAGE_TEXT_ENG" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="MESSAGE_TEXT_THA" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="MESSAGE_SQLCODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="MESSAGE_NATURE" type="xsd:long"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ReadNewCardWSInput">
+		<wsdl:part element="tuxtype:ReadNewCardWS" name="FML32"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ReadNewCardWSOutput">
+		<wsdl:part element="tuxtype:ReadNewCardWSResponse" name="FML32"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ReadNewCardWSError">
+		<wsdl:part element="tuxtype:ReadNewCardWSFault" name="FML32"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="INReadNewCardWS_PortType">
+		<wsdl:operation name="ReadNewCardWS">
+			<wsdl:input message="tns:ReadNewCardWSInput"></wsdl:input>
+			<wsdl:output message="tns:ReadNewCardWSOutput"></wsdl:output>
+			<wsdl:fault message="tns:ReadNewCardWSError" name="ReadNewCardWSError"></wsdl:fault>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="INReadNewCardWS_Binding" type="tns:INReadNewCardWS_PortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap11:binding>
+		<wsdl:operation name="ReadNewCardWS">
+			<soap11:operation soapAction="ReadNewCardWS" style="document"></soap11:operation>
+			<wsdl:input>
+				<soap11:body use="literal"></soap11:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"></soap11:body>
+			</wsdl:output>
+			<wsdl:fault name="ReadNewCardWSError">
+				<soap11:fault name="ReadNewCardWSError" use="literal"></soap11:fault>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TuxedoWebService">
+		<wsdl:port binding="tns:INReadNewCardWS_Binding" name="INReadNewCardWS_Endpoint">
+			<soap11:address location="http://athena13:9582/ReadNewCardWS"></soap11:address>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
