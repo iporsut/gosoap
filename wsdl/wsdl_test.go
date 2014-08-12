@@ -25,7 +25,7 @@ func testUnmarshal(t *testing.T, b []byte) Definition {
 }
 
 func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition) {
-	b := testRead(t, "./testdata/wsdl.xml")
+	b := testRead(t, filename)
 	definition = testUnmarshal(t, b)
 	return
 }
@@ -56,6 +56,10 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalAddress),
 		testCase(testUnmarshalBinding),
 		testCase(testUnmarshalSOAPBinding),
+		testCase(testUnmarshalOperationBinding),
+		testCase(testUnmarshalBodyInInputOperation),
+		testCase(testUnmarshalBodyInOutputOperation),
+		testCase(testUnmarshalSOAPFaultInFaultOperation),
 	}
 
 	for _, test := range tests {
@@ -317,5 +321,41 @@ func testUnmarshalSOAPBinding(t *testing.T, definition Definition) {
 
 	if binding.Transport != "http://schemas.xmlsoap.org/soap/http" {
 		t.Errorf("expect \"http://schemas.xmlsoap.org/soap/http\" but was %s", binding.Transport)
+	}
+}
+
+func testUnmarshalOperationBinding(t *testing.T, definition Definition) {
+	var operation WSDLOperation = definition.Binding.Operation
+
+	if operation.Name != "ReadRetlWS" {
+		t.Errorf("expect \"ReadRetlWS\" but was %s", operation.Name)
+	}
+}
+
+func testUnmarshalBodyInInputOperation(t *testing.T, definition Definition) {
+	var body SOAPBody = definition.Binding.Operation.Input.Body
+
+	if body.Use != "literal" {
+		t.Errorf("expect \"literal\" but was %s", body.Use)
+	}
+}
+
+func testUnmarshalBodyInOutputOperation(t *testing.T, definition Definition) {
+	var body SOAPBody = definition.Binding.Operation.Output.Body
+
+	if body.Use != "literal" {
+		t.Errorf("expect \"literal\" but was %s", body.Use)
+	}
+}
+
+func testUnmarshalSOAPFaultInFaultOperation(t *testing.T, definition Definition) {
+	var fault SOAPFault = definition.Binding.Operation.Fault.Fault
+
+	if fault.Name != "ReadRetlWSError" {
+		t.Errorf("expect \"ReadRetlWSError\" but was %s", fault.Name)
+	}
+
+	if fault.Use != "literal" {
+		t.Errorf("expect \"literal\" but was %s", fault.Use)
 	}
 }

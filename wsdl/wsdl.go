@@ -14,21 +14,36 @@ type Message struct {
 	Part Part   `xml:"part"`
 }
 
+type SOAPBody struct {
+	Use string `xml:"use,attr"`
+}
+
 type Operation struct {
 	Message string `xml:"message,attr"`
 }
 
-type InputOperation struct {
+type IOOperation struct {
 	Operation
+	Body SOAPBody `xml:"body"`
+}
+
+type InputOperation struct {
+	IOOperation
 }
 
 type OutputOperation struct {
-	Operation
+	IOOperation
+}
+
+type SOAPFault struct {
+	Name string `xml:"name,attr"`
+	Use  string `xml:"use,attr"`
 }
 
 type FaultOperation struct {
 	Operation
-	Name string `xml:"name,attr"`
+	Name  string    `xml:"name,attr"`
+	Fault SOAPFault `xml:"fault"`
 }
 
 type WSDLOperation struct {
@@ -101,9 +116,10 @@ type SOAPBinding struct {
 }
 
 type Binding struct {
-	Name    string      `xml:"name,attr"`
-	Type    string      `xml:"type,attr"`
-	Binding SOAPBinding `xml:"binding"`
+	Name      string        `xml:"name,attr"`
+	Type      string        `xml:"type,attr"`
+	Binding   SOAPBinding   `xml:"binding"`
+	Operation WSDLOperation `xml:"operation"`
 }
 
 type Definition struct {
