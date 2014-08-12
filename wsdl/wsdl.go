@@ -29,8 +29,8 @@ type WSDLOperation struct {
 }
 
 type PortType struct {
-	Name      string        `xml:"name,attr"`
-	Operation WSDLOperation `xml:"operation"`
+	Name       string          `xml:"name,attr"`
+	Operations []WSDLOperation `xml:"operation"`
 }
 
 type Definition struct {

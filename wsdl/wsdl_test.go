@@ -99,15 +99,15 @@ func testUnmarshalPortType(t *testing.T, definition Definition) {
 }
 
 func testUnmarshalOperationInPortType(t *testing.T, definition Definition) {
-	var operation WSDLOperation = definition.PortType.Operation
+	var operations []WSDLOperation = definition.PortType.Operations
 
-	if operation.Name != "ReadRetlWS" {
-		t.Errorf("expect \"ReadRetlWS\" but was %s", operation.Name)
+	if operations[0].Name != "ReadRetlWS" {
+		t.Errorf("expect \"ReadRetlWS\" but was %s", operations[0].Name)
 	}
 }
 
 func testUnmarshalOperationInputInPortType(t *testing.T, definition Definition) {
-	var inputOperation InputOperation = definition.PortType.Operation.Input
+	var inputOperation InputOperation = definition.PortType.Operations[0].Input
 
 	if inputOperation.Message != "tns:ReadRetlWSInput" {
 		t.Errorf("expect \"tns:ReadRetlWSInput\" but was %s", inputOperation.Message)
@@ -115,7 +115,7 @@ func testUnmarshalOperationInputInPortType(t *testing.T, definition Definition) 
 }
 
 func testUnmarshalOperationOutputInPortType(t *testing.T, definition Definition) {
-	var outputOperation OutputOperation = definition.PortType.Operation.Output
+	var outputOperation OutputOperation = definition.PortType.Operations[0].Output
 
 	if outputOperation.Message != "tns:ReadRetlWSOutput" {
 		t.Errorf("expect \"tns:ReadRetlWSOutput\" but was %s", outputOperation.Message)
