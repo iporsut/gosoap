@@ -30,17 +30,29 @@ func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition
 	return
 }
 
+type testCase func(t *testing.T, definition Definition)
+
+func (test testCase) call(t *testing.T, definition Definition) {
+	test(t, definition)
+}
+
 func TestUnmarshal(t *testing.T) {
 	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
-	testUnmarshalDocumentation(t, definition)
-	testUnmarshalMessage(t, definition)
-	testUnmarshalPartInMessage(t, definition)
-	testUnmarshalPortType(t, definition)
-	testUnmarshalOperationInPortType(t, definition)
-	testUnmarshalOperationInputInPortType(t, definition)
-	testUnmarshalOperationOutputInPortType(t, definition)
-	testUnmarshalOperationFault(t, definition)
+	var tests = []testCase {
+		testCase(testUnmarshalDocumentation),
+		testCase(testUnmarshalMessage),
+		testCase(testUnmarshalPartInMessage),
+		testCase(testUnmarshalPortType),
+		testCase(testUnmarshalOperationInPortType),
+		testCase(testUnmarshalOperationInputInPortType),
+		testCase(testUnmarshalOperationOutputInPortType),
+		testCase(testUnmarshalOperationFault),
+	}
+
+	for _, test := range tests{
+		test.call(t, definition)
+	}
 }
 
 func testUnmarshalDocumentation(t *testing.T, definition Definition) {
