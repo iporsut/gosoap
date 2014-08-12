@@ -83,3 +83,13 @@ func TestUnmarshalPartInMessage(t *testing.T) {
 		t.Errorf("expect parts %v but was %v", expectedParts, parts)
 	}
 }
+
+func TestUnmarshalPortType(t *testing.T) {
+	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
+
+	portType := definition.PortType
+
+	if portType.Name != "INReadRetlWS_PortType" {
+		t.Errorf("expect \"INReadRetlWS_PortType\" but was %s", portType.Name)
+	}
+}

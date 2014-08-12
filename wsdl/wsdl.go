@@ -10,14 +10,19 @@ type Part struct {
 }
 
 type Message struct {
-	Name    string   `xml:"name,attr"`
-	Part    Part     `xml:"part"`
+	Name string `xml:"name,attr"`
+	Part Part   `xml:"part"`
+}
+
+type PortType struct {
+	Name string `xml:"name,attr"`
 }
 
 type Definition struct {
 	XMLName       xml.Name  `xml:"definitions"`
 	Documentation string    `xml:"documentation"`
 	Messages      []Message `xml:"message"`
+	PortType      PortType  `xml:"portType"`
 }
 
 func Unmarshal(b []byte) (definition Definition, err error) {
