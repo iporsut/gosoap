@@ -1,12 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/xml"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
-	"os"
+	//"os"
 	"strings"
 	//"net/http"
 )
@@ -17,9 +18,12 @@ type Sequence struct {
 	Elements []Element `xml:"element"`
 }
 
+type All Sequence
+
 type ComplexType struct {
 	Name     string   `xml:"name,attr"`
 	Sequence Sequence `xml:"sequence"`
+	All      All      `xml:"all"`
 }
 
 type Element struct {
@@ -135,6 +139,7 @@ type WSDL struct {
 }
 
 func main() {
+	buffer := bytes.NewBuffer(make([]byte, 32*1024))
 	/*resp, err := http.Get("http://www.herongyang.com/Service/Hello_WSDL_11_SOAP.wsdl")
 	if err != nil {
 		log.Fatal(err)
@@ -142,7 +147,7 @@ func main() {
 	defer resp.Body.Close()
 	b, err := ioutil.ReadAll(resp.Body)*/
 	//b, err := ioutil.ReadFile("NCCAQueryAssetNote.wsdl")
-	b, err := ioutil.ReadFile("wsdl.xml")
+	b, err := ioutil.ReadFile("../wsdl.xml")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -153,13 +158,30 @@ func main() {
 	}
 
 	for _, op := range wsdl.PortType.Operations {
-		inputMessageName := strings.Split(op.Input.Message, ":")[1]
+
+		inputMessageName := op.Input.Message
+		if sp := strings.Split(inputMessageName, ":"); len(sp) > 1 {
+			inputMessageName = sp[1]
+		}
 		inputMessage := wsdl.FindMessageByName(inputMessageName)
-		elementName := strings.Split(inputMessage.Part.Element, ":")[1]
+
+		elementName := inputMessage.Part.Element
+		if sp := strings.Split(elementName, ":"); len(sp) > 1 {
+			elementName = sp[1]
+		}
 		element, schema := wsdl.FindElementByName(elementName)
 		namespace := addNamespace(schema.TargetNamespace)
-		wsdl.PrintElementType(element, namespace, os.Stdout)
+		wsdl.PrintElementType(element, namespace, buffer)
 	}
+
+	soapRequest := `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" `
+	for key, namespace := range namespaces {
+		soapRequest += "xmlns:" + key + "=\"" + namespace
+	}
+	soapRequest += `"><soapenv:Header/><soapenv:Body>` + "\n"
+	soapRequest += buffer.String()
+	soapRequest += `</soapenv:Body></soapenv:Envelope>`
+	fmt.Printf("%s\n", soapRequest)
 }
 
 func addNamespace(namespace string) string {
