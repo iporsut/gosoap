@@ -59,6 +59,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalOperationBinding),
 		testCase(testUnmarshalBodyInInputOperation),
 		testCase(testUnmarshalBodyInOutputOperation),
+		testCase(testUnmarshalSOAPFaultInFaultOperation),
 	}
 
 	for _, test := range tests {
@@ -344,5 +345,17 @@ func testUnmarshalBodyInOutputOperation(t *testing.T, definition Definition) {
 
 	if body.Use != "literal" {
 		t.Errorf("expect \"literal\" but was %s", body.Use)
+	}
+}
+
+func testUnmarshalSOAPFaultInFaultOperation(t *testing.T, definition Definition) {
+	var fault SOAPFault = definition.Binding.Operation.Fault.Fault
+
+	if fault.Name != "ReadRetlWSError" {
+		t.Errorf("expect \"ReadRetlWSError\" but was %s", fault.Name)
+	}
+
+	if fault.Use != "literal" {
+		t.Errorf("expect \"literal\" but was %s", fault.Use)
 	}
 }

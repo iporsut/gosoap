@@ -35,9 +35,15 @@ type OutputOperation struct {
 	IOOperation
 }
 
+type SOAPFault struct {
+	Name string `xml:"name,attr"`
+	Use  string `xml:"use,attr"`
+}
+
 type FaultOperation struct {
 	Operation
-	Name string `xml:"name,attr"`
+	Name  string    `xml:"name,attr"`
+	Fault SOAPFault `xml:"fault"`
 }
 
 type WSDLOperation struct {
