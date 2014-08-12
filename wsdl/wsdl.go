@@ -95,9 +95,15 @@ type Service struct {
 	Port Port   `xml:"port"`
 }
 
+type SOAPBinding struct {
+	Style     string `xml:"style,attr"`
+	Transport string `xml:"transport,attr"`
+}
+
 type Binding struct {
-	Name string `xml:"name,attr"`
-	Type string `xml:"type,attr"`
+	Name    string      `xml:"name,attr"`
+	Type    string      `xml:"type,attr"`
+	Binding SOAPBinding `xml:"binding"`
 }
 
 type Definition struct {

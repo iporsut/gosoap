@@ -55,6 +55,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalPortInService),
 		testCase(testUnmarshalAddress),
 		testCase(testUnmarshalBinding),
+		testCase(testUnmarshalSOAPBinding),
 	}
 
 	for _, test := range tests {
@@ -304,5 +305,17 @@ func testUnmarshalBinding(t *testing.T, definition Definition) {
 
 	if binding.Type != "tns:INReadRetlWS_PortType" {
 		t.Errorf("expect \"tns:INReadRetlWS_PortType\" but was %s", binding.Type)
+	}
+}
+
+func testUnmarshalSOAPBinding(t *testing.T, definition Definition) {
+	var binding SOAPBinding = definition.Binding.Binding
+
+	if binding.Style != "document" {
+		t.Errorf("expect \"document\" but was %s", binding.Style)
+	}
+
+	if binding.Transport != "http://schemas.xmlsoap.org/soap/http" {
+		t.Errorf("expect \"http://schemas.xmlsoap.org/soap/http\" but was %s", binding.Transport)
 	}
 }
