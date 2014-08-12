@@ -39,7 +39,7 @@ func (test testCase) call(t *testing.T, definition Definition) {
 func TestUnmarshal(t *testing.T) {
 	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
-	var tests = []testCase {
+	var tests = []testCase{
 		testCase(testUnmarshalDocumentation),
 		testCase(testUnmarshalMessage),
 		testCase(testUnmarshalPartInMessage),
@@ -48,9 +48,10 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalOperationInputInPortType),
 		testCase(testUnmarshalOperationOutputInPortType),
 		testCase(testUnmarshalOperationFault),
+		testCase(testUnmarshalSchema),
 	}
 
-	for _, test := range tests{
+	for _, test := range tests {
 		test.call(t, definition)
 	}
 }
@@ -144,5 +145,21 @@ func testUnmarshalOperationFault(t *testing.T, definition Definition) {
 
 	if faultOperation.Name != "ReadRetlWSError" {
 		t.Errorf("expect \"ReadRetlWSError\" but was %s", faultOperation.Name)
+	}
+}
+
+func testUnmarshalSchema(t *testing.T, definition Definition) {
+	var schema Schema = definition.Types.Schema
+
+	if schema.AttributeFormDefault != "unqualified" {
+		t.Errorf("expect \"unqualified\" but was %s", schema.AttributeFormDefault)
+	}
+
+	if schema.ElementFormDefault != "qualified" {
+		t.Errorf("expect \"unqualified\" but was %s", schema.ElementFormDefault)
+	}
+
+	if schema.TargetNamespace != "urn:pack.INReadRetlWS_typedef.salt11" {
+		t.Errorf("expect \"urn:pack.INReadRetlWS_PortType.salt11\" but was %s", schema.TargetNamespace)
 	}
 }

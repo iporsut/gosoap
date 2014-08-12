@@ -39,11 +39,22 @@ type PortType struct {
 	Operations []WSDLOperation `xml:"operation"`
 }
 
+type Schema struct {
+	AttributeFormDefault string `xml:"attributeFormDefault,attr"`
+	ElementFormDefault   string `xml:"elementFormDefault,attr"`
+	TargetNamespace      string `xml:"targetNamespace,attr"`
+}
+
+type Types struct {
+	Schema Schema `xml:"schema"`
+}
+
 type Definition struct {
 	XMLName       xml.Name  `xml:"definitions"`
 	Documentation string    `xml:"documentation"`
 	Messages      []Message `xml:"message"`
 	PortType      PortType  `xml:"portType"`
+	Types         Types     `xml:"types"`
 }
 
 func Unmarshal(b []byte) (definition Definition, err error) {
