@@ -14,8 +14,13 @@ type Message struct {
 	Part Part   `xml:"part"`
 }
 
-type PortType struct {
+type WSDLOperation struct {
 	Name string `xml:"name,attr"`
+}
+
+type PortType struct {
+	Name      string        `xml:"name,attr"`
+	Operation WSDLOperation `xml:"operation"`
 }
 
 type Definition struct {
