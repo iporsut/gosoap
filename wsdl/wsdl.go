@@ -53,10 +53,11 @@ type SequenceElement struct {
 }
 
 type Sequence struct {
-	Element SequenceElement `xml:"element"`
+	Elements []SequenceElement `xml:"element"`
 }
 
 type ComplexType struct {
+	Name     string   `xml:"name,attr"`
 	Sequence Sequence `xml:"sequence"`
 }
 
@@ -70,6 +71,7 @@ type Schema struct {
 	ElementFormDefault   string          `xml:"elementFormDefault,attr"`
 	TargetNamespace      string          `xml:"targetNamespace,attr"`
 	Elements             []SchemaElement `xml:"element"`
+	ComplexTypes         []ComplexType   `xml:"complexType"`
 }
 
 type Types struct {

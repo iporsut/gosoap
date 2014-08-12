@@ -50,6 +50,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalOperationFault),
 		testCase(testUnmarshalSchema),
 		testCase(testUnmarshalElement),
+		testCase(testUnmarshalComplexTypeInSchema),
 	}
 
 	for _, test := range tests {
@@ -181,7 +182,7 @@ func testUnmarshalElement(t *testing.T, definition Definition) {
 }
 
 func testUnmarshalComplexTypeInElement(t *testing.T, definition Definition) {
-	var element SequenceElement = definition.Types.Schema.Elements[0].ComplexType.Sequence.Element
+	var element SequenceElement = definition.Types.Schema.Elements[0].ComplexType.Sequence.Elements[0]
 
 	if element.Name != "inbuf" {
 		t.Errorf("expect \"inbuf\" but was %s", element.Name)
@@ -189,5 +190,16 @@ func testUnmarshalComplexTypeInElement(t *testing.T, definition Definition) {
 
 	if element.Type != "tuxtype:fml32_ReadRetlWS_In" {
 		t.Errorf("expect \"tuxtype:fml32_ReadRetlWS_In\" but was %s", element.Type)
+	}
+}
+
+func testUnmarshalComplexTypeInSchema(t *testing.T, definition Definition) {
+	var complexTypes []ComplexType = definition.Types.Schema.ComplexTypes
+
+	var names = []string{"fml32_ReadRetlWS_In", "fml32_ReadRetlWS_Out", "fml32_ReadRetlWS_Err"}
+	for i := 0; i < len(names); i++ {
+		if complexTypes[i].Name != names[i] {
+			t.Errorf("expect %s but was %s", names[i], complexTypes[i].Name)
+		}
 	}
 }
