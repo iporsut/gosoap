@@ -30,16 +30,37 @@ func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition
 	return
 }
 
+type testCase func(t *testing.T, definition Definition)
+
+func (test testCase) call(t *testing.T, definition Definition) {
+	test(t, definition)
+}
+
 func TestUnmarshal(t *testing.T) {
 	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
-	testUnmarshalDocumentation(t, definition)
-	testUnmarshalMessage(t, definition)
-	testUnmarshalPartInMessage(t, definition)
-	testUnmarshalPortType(t, definition)
-	testUnmarshalOperationInPortType(t, definition)
-	testUnmarshalOperationInputInPortType(t, definition)
-	testUnmarshalOperationOutputInPortType(t, definition)
+	var tests = []testCase{
+		testCase(testUnmarshalDocumentation),
+		testCase(testUnmarshalMessage),
+		testCase(testUnmarshalPartInMessage),
+		testCase(testUnmarshalPortType),
+		testCase(testUnmarshalOperationInPortType),
+		testCase(testUnmarshalOperationInputInPortType),
+		testCase(testUnmarshalOperationOutputInPortType),
+		testCase(testUnmarshalOperationFault),
+		testCase(testUnmarshalSchema),
+		testCase(testUnmarshalElement),
+		testCase(testUnmarshalComplexTypeInSchema),
+		testCase(testUnmarshalService),
+		testCase(testUnmarshalPortInService),
+		testCase(testUnmarshalAddress),
+		testCase(testUnmarshalBinding),
+		testCase(testUnmarshalSOAPBinding),
+	}
+
+	for _, test := range tests {
+		test.call(t, definition)
+	}
 }
 
 func testUnmarshalDocumentation(t *testing.T, definition Definition) {
@@ -119,5 +140,182 @@ func testUnmarshalOperationOutputInPortType(t *testing.T, definition Definition)
 
 	if outputOperation.Message != "tns:ReadRetlWSOutput" {
 		t.Errorf("expect \"tns:ReadRetlWSOutput\" but was %s", outputOperation.Message)
+	}
+}
+
+func testUnmarshalOperationFault(t *testing.T, definition Definition) {
+	var faultOperation FaultOperation = definition.PortType.Operations[0].Fault
+
+	if faultOperation.Message != "tns:ReadRetlWSError" {
+		t.Errorf("expect \"tns:ReadRetlWSError\" but was %s", faultOperation.Message)
+	}
+
+	if faultOperation.Name != "ReadRetlWSError" {
+		t.Errorf("expect \"ReadRetlWSError\" but was %s", faultOperation.Name)
+	}
+}
+
+func testUnmarshalSchema(t *testing.T, definition Definition) {
+	var schema Schema = definition.Types.Schema
+
+	if schema.AttributeFormDefault != "unqualified" {
+		t.Errorf("expect \"unqualified\" but was %s", schema.AttributeFormDefault)
+	}
+
+	if schema.ElementFormDefault != "qualified" {
+		t.Errorf("expect \"unqualified\" but was %s", schema.ElementFormDefault)
+	}
+
+	if schema.TargetNamespace != "urn:pack.INReadRetlWS_typedef.salt11" {
+		t.Errorf("expect \"urn:pack.INReadRetlWS_PortType.salt11\" but was %s", schema.TargetNamespace)
+	}
+}
+
+func testUnmarshalElement(t *testing.T, definition Definition) {
+	var elements []SchemaElement = definition.Types.Schema.Elements
+
+	if len(elements) != 3 {
+		t.Errorf("expect 3 but was %d", len(elements))
+	}
+
+	var names = []string{"ReadRetlWS", "ReadRetlWSResponse", "ReadRetlWSFault"}
+	for i := 0; i < len(names); i++ {
+		if elements[i].Name != names[i] {
+			t.Errorf("expect %s but was %s", names[i], elements[i].Name)
+		}
+	}
+}
+
+func testUnmarshalComplexTypeInElement(t *testing.T, definition Definition) {
+	var element SequenceElement = definition.Types.Schema.Elements[0].ComplexType.Sequence.Elements[0]
+
+	if element.Name != "inbuf" {
+		t.Errorf("expect \"inbuf\" but was %s", element.Name)
+	}
+
+	if element.Type != "tuxtype:fml32_ReadRetlWS_In" {
+		t.Errorf("expect \"tuxtype:fml32_ReadRetlWS_In\" but was %s", element.Type)
+	}
+}
+
+func testUnmarshalComplexTypeInSchema(t *testing.T, definition Definition) {
+	var complexTypes []ComplexType = definition.Types.Schema.ComplexTypes
+
+	var names = []string{"fml32_ReadRetlWS_In", "fml32_ReadRetlWS_Out", "fml32_ReadRetlWS_Err"}
+	for i := 0; i < len(names); i++ {
+		if complexTypes[i].Name != names[i] {
+			t.Errorf("expect %s but was %s", names[i], complexTypes[i].Name)
+		}
+	}
+}
+
+func testUnmarshalAttributeElementInComplexTypeSchema(t *testing.T, definition Definition) {
+	var elements []SequenceElement = definition.Types.Schema.ComplexTypes[0].Sequence.Elements
+
+	var expectedElements = []SequenceElement{
+		SequenceElement{
+			Element: Element{
+				Name: "USER_CODE",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_CODE",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_NAME",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__SHOP_NAME",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_STTS",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "READ_FLAG",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+	}
+
+	if !reflect.DeepEqual(elements, expectedElements) {
+		t.Errorf("expect %v but was %v", expectedElements, elements)
+	}
+}
+
+func testUnmarshalService(t *testing.T, definition Definition) {
+	var service Service = definition.Service
+
+	if service.Name != "TuxedoWebService" {
+		t.Errorf("expect \"TuxedoWebService\" but was %s", service.Name)
+	}
+}
+
+func testUnmarshalPortInService(t *testing.T, definition Definition) {
+	var port = definition.Service.Port
+
+	if port.Binding != "tns:INReadRetlWS_Binding" {
+		t.Errorf("expect \"tns:INReadRetlWS_Binding\" but was %s", port.Binding)
+	}
+
+	if port.Name != "INReadRetlWS_Endpoint" {
+		t.Errorf("expect \"INReadRetlWS_Endpoint\" but was %s", port.Name)
+	}
+}
+
+func testUnmarshalAddress(t *testing.T, definition Definition) {
+	var address = definition.Service.Port.Address
+
+	if address.Location != "http://athena13:9582/ReadRetlWS" {
+		t.Errorf("expect \"http://athena13:9582/ReadRetlWS\" but was %s", address.Location)
+	}
+}
+
+func testUnmarshalBinding(t *testing.T, definition Definition) {
+	var binding = definition.Binding
+
+	if binding.Name != "INReadRetlWS_Binding" {
+		t.Errorf("expect \"INReadRetlWS_Binding\" but was %s", binding.Name)
+	}
+
+	if binding.Type != "tns:INReadRetlWS_PortType" {
+		t.Errorf("expect \"tns:INReadRetlWS_PortType\" but was %s", binding.Type)
+	}
+}
+
+func testUnmarshalSOAPBinding(t *testing.T, definition Definition) {
+	var binding SOAPBinding = definition.Binding.Binding
+
+	if binding.Style != "document" {
+		t.Errorf("expect \"document\" but was %s", binding.Style)
+	}
+
+	if binding.Transport != "http://schemas.xmlsoap.org/soap/http" {
+		t.Errorf("expect \"http://schemas.xmlsoap.org/soap/http\" but was %s", binding.Transport)
 	}
 }
