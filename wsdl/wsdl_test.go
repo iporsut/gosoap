@@ -103,3 +103,13 @@ func TestUnmarshalOperationInPortType(t *testing.T) {
 		t.Errorf("expect \"ReadRetlWS\" but was %s", operation.Name)
 	}
 }
+
+func TestUnmarshalOperationInputInPortType(t *testing.T) {
+	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
+
+	var inputOperation InputOperation = definition.PortType.Operation.Input
+
+	if inputOperation.Message != "tns:ReadRetlWSInput" {
+		t.Errorf("expect \"tns:ReadRetlWSInput\" but was %s", inputOperation.Message)
+	}
+}
