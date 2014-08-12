@@ -18,9 +18,14 @@ type InputOperation struct {
 	Message string `xml:"message,attr"`
 }
 
+type OutputOperation struct {
+	Message string `xml:"message,attr"`
+}
+
 type WSDLOperation struct {
-	Name  string         `xml:"name,attr"`
-	Input InputOperation `xml:"input"`
+	Name   string          `xml:"name,attr"`
+	Input  InputOperation  `xml:"input"`
+	Output OutputOperation `xml:"output"`
 }
 
 type PortType struct {

@@ -39,6 +39,7 @@ func TestUnmarshal(t *testing.T) {
 	testUnmarshalPortType(t, definition)
 	testUnmarshalOperationInPortType(t, definition)
 	testUnmarshalOperationInputInPortType(t, definition)
+	testUnmarshalOperationOutputInPortType(t, definition)
 }
 
 func testUnmarshalDocumentation(t *testing.T, definition Definition) {
@@ -110,5 +111,13 @@ func testUnmarshalOperationInputInPortType(t *testing.T, definition Definition) 
 
 	if inputOperation.Message != "tns:ReadRetlWSInput" {
 		t.Errorf("expect \"tns:ReadRetlWSInput\" but was %s", inputOperation.Message)
+	}
+}
+
+func testUnmarshalOperationOutputInPortType(t *testing.T, definition Definition) {
+	var outputOperation OutputOperation = definition.PortType.Operation.Output
+
+	if outputOperation.Message != "tns:ReadRetlWSOutput" {
+		t.Errorf("expect \"tns:ReadRetlWSOutput\" but was %s", outputOperation.Message)
 	}
 }
