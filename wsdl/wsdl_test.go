@@ -49,6 +49,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalOperationOutputInPortType),
 		testCase(testUnmarshalOperationFault),
 		testCase(testUnmarshalSchema),
+		testCase(testUnmarshalElement),
 	}
 
 	for _, test := range tests {
@@ -161,5 +162,20 @@ func testUnmarshalSchema(t *testing.T, definition Definition) {
 
 	if schema.TargetNamespace != "urn:pack.INReadRetlWS_typedef.salt11" {
 		t.Errorf("expect \"urn:pack.INReadRetlWS_PortType.salt11\" but was %s", schema.TargetNamespace)
+	}
+}
+
+func testUnmarshalElement(t *testing.T, definition Definition) {
+	var elements []Element = definition.Types.Schema.Elements
+
+	if len(elements) != 3 {
+		t.Errorf("expect 3 but was %d", len(elements))
+	}
+
+	var names = []string{"ReadRetlWS", "ReadRetlWSResponse", "ReadRetlWSFault"}
+	for i := 0; i < len(names); i++ {
+		if elements[i].Name != names[i] {
+			t.Errorf("expect %s but was %s", names[i], elements[i].Name)
+		}
 	}
 }

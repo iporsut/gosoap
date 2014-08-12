@@ -39,10 +39,15 @@ type PortType struct {
 	Operations []WSDLOperation `xml:"operation"`
 }
 
+type Element struct {
+	Name string `xml:"name,attr"`
+}
+
 type Schema struct {
-	AttributeFormDefault string `xml:"attributeFormDefault,attr"`
-	ElementFormDefault   string `xml:"elementFormDefault,attr"`
-	TargetNamespace      string `xml:"targetNamespace,attr"`
+	AttributeFormDefault string    `xml:"attributeFormDefault,attr"`
+	ElementFormDefault   string    `xml:"elementFormDefault,attr"`
+	TargetNamespace      string    `xml:"targetNamespace,attr"`
+	Elements             []Element `xml:"element"`
 }
 
 type Types struct {
