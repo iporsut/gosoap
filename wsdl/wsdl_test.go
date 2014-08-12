@@ -30,17 +30,24 @@ func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition
 	return
 }
 
-func TestUnmarshalDocumentation(t *testing.T) {
+func TestUnmarshal(t *testing.T) {
 	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
+	testUnmarshalDocumentation(t, definition)
+	testUnmarshalMessage(t, definition)
+	testUnmarshalPartInMessage(t, definition)
+	testUnmarshalPortType(t, definition)
+	testUnmarshalOperationInPortType(t, definition)
+	testUnmarshalOperationInputInPortType(t, definition)
+}
+
+func testUnmarshalDocumentation(t *testing.T, definition Definition) {
 	if definition.Documentation != "Generated at 08-11-2014 16:33:06:253" {
 		t.Errorf("expect \"Generated at 08-11-2014 16:33:06:253\" but was %s", definition.Documentation)
 	}
 }
 
-func TestUnmarshalMessage(t *testing.T) {
-	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
-
+func testUnmarshalMessage(t *testing.T, definition Definition) {
 	messages := definition.Messages
 
 	if messages[0].Name != "ReadRetlWSInput" {
@@ -54,9 +61,7 @@ func TestUnmarshalMessage(t *testing.T) {
 	}
 }
 
-func TestUnmarshalPartInMessage(t *testing.T) {
-	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
-
+func testUnmarshalPartInMessage(t *testing.T, definition Definition) {
 	messages := definition.Messages
 	parts := []Part{
 		messages[0].Part,
@@ -84,9 +89,7 @@ func TestUnmarshalPartInMessage(t *testing.T) {
 	}
 }
 
-func TestUnmarshalPortType(t *testing.T) {
-	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
-
+func testUnmarshalPortType(t *testing.T, definition Definition) {
 	portType := definition.PortType
 
 	if portType.Name != "INReadRetlWS_PortType" {
@@ -94,9 +97,7 @@ func TestUnmarshalPortType(t *testing.T) {
 	}
 }
 
-func TestUnmarshalOperationInPortType(t *testing.T) {
-	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
-
+func testUnmarshalOperationInPortType(t *testing.T, definition Definition) {
 	var operation WSDLOperation = definition.PortType.Operation
 
 	if operation.Name != "ReadRetlWS" {
@@ -104,9 +105,7 @@ func TestUnmarshalOperationInPortType(t *testing.T) {
 	}
 }
 
-func TestUnmarshalOperationInputInPortType(t *testing.T) {
-	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
-
+func testUnmarshalOperationInputInPortType(t *testing.T, definition Definition) {
 	var inputOperation InputOperation = definition.PortType.Operation.Input
 
 	if inputOperation.Message != "tns:ReadRetlWSInput" {
