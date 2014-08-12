@@ -80,8 +80,14 @@ type Types struct {
 	Schema Schema `xml:"schema"`
 }
 
+type Port struct {
+	Binding string `xml:"binding,attr"`
+	Name    string `xml:"name,attr"`
+}
+
 type Service struct {
 	Name string `xml:"name,attr"`
+	Port Port   `xml:"port"`
 }
 
 type Definition struct {

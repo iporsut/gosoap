@@ -52,6 +52,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalElement),
 		testCase(testUnmarshalComplexTypeInSchema),
 		testCase(testUnmarshalService),
+		testCase(testUnmarshalPortInService),
 	}
 
 	for _, test := range tests {
@@ -269,5 +270,17 @@ func testUnmarshalService(t *testing.T, definition Definition) {
 
 	if service.Name != "TuxedoWebService" {
 		t.Errorf("expect \"TuxedoWebService\" but was %s", service.Name)
+	}
+}
+
+func testUnmarshalPortInService(t *testing.T, definition Definition) {
+	var port = definition.Service.Port
+
+	if port.Binding != "tns:INReadRetlWS_Binding" {
+		t.Errorf("expect \"tns:INReadRetlWS_Binding\" but was %s", port.Binding)
+	}
+
+	if port.Name != "INReadRetlWS_Endpoint" {
+		t.Errorf("expect \"INReadRetlWS_Endpoint\" but was %s", port.Name)
 	}
 }
