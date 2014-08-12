@@ -14,17 +14,21 @@ type Message struct {
 	Part Part   `xml:"part"`
 }
 
-type InputOperation struct {
+type Operation struct {
 	Message string `xml:"message,attr"`
+}
+
+type InputOperation struct {
+	Operation
 }
 
 type OutputOperation struct {
-	Message string `xml:"message,attr"`
+	Operation
 }
 
 type FaultOperation struct {
-	Message string `xml:"message,attr"`
-	Name    string `xml:"name,attr"`
+	Operation
+	Name string `xml:"name,attr"`
 }
 
 type WSDLOperation struct {
