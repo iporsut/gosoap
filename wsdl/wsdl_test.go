@@ -54,6 +54,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalService),
 		testCase(testUnmarshalPortInService),
 		testCase(testUnmarshalAddress),
+		testCase(testUnmarshalBinding),
 	}
 
 	for _, test := range tests {
@@ -291,5 +292,17 @@ func testUnmarshalAddress(t *testing.T, definition Definition) {
 
 	if address.Location != "http://athena13:9582/ReadRetlWS" {
 		t.Errorf("expect \"http://athena13:9582/ReadRetlWS\" but was %s", address.Location)
+	}
+}
+
+func testUnmarshalBinding(t *testing.T, definition Definition) {
+	var binding = definition.Binding
+
+	if binding.Name != "INReadRetlWS_Binding" {
+		t.Errorf("expect \"INReadRetlWS_Binding\" but was %s", binding.Name)
+	}
+
+	if binding.Type != "tns:INReadRetlWS_PortType" {
+		t.Errorf("expect \"tns:INReadRetlWS_PortType\" but was %s", binding.Type)
 	}
 }

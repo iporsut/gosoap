@@ -95,6 +95,11 @@ type Service struct {
 	Port Port   `xml:"port"`
 }
 
+type Binding struct {
+	Name string `xml:"name,attr"`
+	Type string `xml:"type,attr"`
+}
+
 type Definition struct {
 	XMLName       xml.Name  `xml:"definitions"`
 	Documentation string    `xml:"documentation"`
@@ -102,6 +107,7 @@ type Definition struct {
 	PortType      PortType  `xml:"portType"`
 	Types         Types     `xml:"types"`
 	Service       Service   `xml:"service"`
+	Binding       Binding   `xml:"binding"`
 }
 
 func Unmarshal(b []byte) (definition Definition, err error) {
