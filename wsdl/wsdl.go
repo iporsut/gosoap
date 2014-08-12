@@ -80,12 +80,17 @@ type Types struct {
 	Schema Schema `xml:"schema"`
 }
 
+type Service struct {
+	Name string `xml:"name,attr"`
+}
+
 type Definition struct {
 	XMLName       xml.Name  `xml:"definitions"`
 	Documentation string    `xml:"documentation"`
 	Messages      []Message `xml:"message"`
 	PortType      PortType  `xml:"portType"`
 	Types         Types     `xml:"types"`
+	Service       Service   `xml:"service"`
 }
 
 func Unmarshal(b []byte) (definition Definition, err error) {

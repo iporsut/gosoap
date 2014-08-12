@@ -51,6 +51,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalSchema),
 		testCase(testUnmarshalElement),
 		testCase(testUnmarshalComplexTypeInSchema),
+		testCase(testUnmarshalService),
 	}
 
 	for _, test := range tests {
@@ -260,5 +261,13 @@ func testUnmarshalAttributeElementInComplexTypeSchema(t *testing.T, definition D
 
 	if !reflect.DeepEqual(elements, expectedElements) {
 		t.Errorf("expect %v but was %v", expectedElements, elements)
+	}
+}
+
+func testUnmarshalService(t *testing.T, definition Definition) {
+	var service Service = definition.Service
+
+	if service.Name != "TuxedoWebService" {
+		t.Errorf("expect \"TuxedoWebService\" but was %s", service.Name)
 	}
 }
