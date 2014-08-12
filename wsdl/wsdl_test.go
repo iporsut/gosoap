@@ -2,16 +2,36 @@ package wsdl
 
 import (
 	"io/ioutil"
+	"reflect"
 	"testing"
 )
 
-func TestUnmarshalDocumentation(t *testing.T) {
-	var b, err = ioutil.ReadFile("./testdata/wsdl.xml")
+func testRead(t *testing.T, filename string) []byte {
+	var b, err = ioutil.ReadFile(filename)
 	if err != nil {
 		t.Error(err)
+		return []byte{}
 	}
+	return b
+}
 
+func testUnmarshal(t *testing.T, b []byte) Definition {
 	definition, err := Unmarshal(b)
+	if err != nil {
+		t.Error(err)
+		return Definition{}
+	}
+	return definition
+}
+
+func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition) {
+	b := testRead(t, "./testdata/wsdl.xml")
+	definition = testUnmarshal(t, b)
+	return
+}
+
+func TestUnmarshalDocumentation(t *testing.T) {
+	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
 	if definition.Documentation != "Generated at 08-11-2014 16:33:06:253" {
 		t.Errorf("expect \"Generated at 08-11-2014 16:33:06:253\" but was %s", definition.Documentation)
@@ -19,15 +39,7 @@ func TestUnmarshalDocumentation(t *testing.T) {
 }
 
 func TestUnmarshalMessage(t *testing.T) {
-	var b, err = ioutil.ReadFile("./testdata/wsdl.xml")
-	if err != nil {
-		t.Error(err)
-	}
-
-	definition, err := Unmarshal(b)
-	if err != nil {
-		t.Error(err)
-	}
+	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
 
 	messages := definition.Messages
 
@@ -39,5 +51,35 @@ func TestUnmarshalMessage(t *testing.T) {
 	}
 	if messages[2].Name != "ReadRetlWSError" {
 		t.Errorf("expect \"ReadRetlWSError\" but was %s", messages[0].Name)
+	}
+}
+
+func TestUnmarshalPartInMessage(t *testing.T) {
+	var definition Definition = testUnmarshalFromFile(t, "./testdata/wsdl.xml")
+
+	messages := definition.Messages
+	parts := []Part{
+		messages[0].Part,
+		messages[1].Part,
+		messages[2].Part,
+	}
+
+	expectedParts := []Part{
+		Part{
+			Element: "tuxtype:ReadRetlWS",
+			Name:    "FML32",
+		},
+		Part{
+			Element: "tuxtype:ReadRetlWSResponse",
+			Name:    "FML32",
+		},
+		Part{
+			Element: "tuxtype:ReadRetlWSFault",
+			Name:    "FML32",
+		},
+	}
+
+	if !reflect.DeepEqual(parts, expectedParts) {
+		t.Errorf("expect parts %v but was %v", expectedParts, parts)
 	}
 }
