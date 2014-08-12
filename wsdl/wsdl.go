@@ -101,9 +101,10 @@ type SOAPBinding struct {
 }
 
 type Binding struct {
-	Name    string      `xml:"name,attr"`
-	Type    string      `xml:"type,attr"`
-	Binding SOAPBinding `xml:"binding"`
+	Name      string        `xml:"name,attr"`
+	Type      string        `xml:"type,attr"`
+	Binding   SOAPBinding   `xml:"binding"`
+	Operation WSDLOperation `xml:"operation"`
 }
 
 type Definition struct {

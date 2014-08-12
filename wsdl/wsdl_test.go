@@ -56,6 +56,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalAddress),
 		testCase(testUnmarshalBinding),
 		testCase(testUnmarshalSOAPBinding),
+		testCase(testUnmarshalOperationBinding),
 	}
 
 	for _, test := range tests {
@@ -317,5 +318,13 @@ func testUnmarshalSOAPBinding(t *testing.T, definition Definition) {
 
 	if binding.Transport != "http://schemas.xmlsoap.org/soap/http" {
 		t.Errorf("expect \"http://schemas.xmlsoap.org/soap/http\" but was %s", binding.Transport)
+	}
+}
+
+func testUnmarshalOperationBinding(t *testing.T, definition Definition) {
+	var operation WSDLOperation = definition.Binding.Operation
+
+	if operation.Name != "ReadRetlWS" {
+		t.Errorf("expect \"ReadRetlWS\" but was %s", operation.Name)
 	}
 }
