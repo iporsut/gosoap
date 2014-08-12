@@ -14,8 +14,13 @@ type Message struct {
 	Part Part   `xml:"part"`
 }
 
+type SOAPBody struct {
+	Use string `xml:"use,attr"`
+}
+
 type Operation struct {
-	Message string `xml:"message,attr"`
+	Message string   `xml:"message,attr"`
+	Body    SOAPBody `xml:"body"`
 }
 
 type InputOperation struct {
