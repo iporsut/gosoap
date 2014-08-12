@@ -203,3 +203,62 @@ func testUnmarshalComplexTypeInSchema(t *testing.T, definition Definition) {
 		}
 	}
 }
+
+func testUnmarshalAttributeElementInComplexTypeSchema(t *testing.T, definition Definition) {
+	var elements []SequenceElement = definition.Types.Schema.ComplexTypes[0].Sequence.Elements
+
+	var expectedElements = []SequenceElement{
+		SequenceElement{
+			Element: Element{
+				Name: "USER_CODE",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_CODE",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_NAME",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__SHOP_NAME",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "RD_RETL__RETL_STTS",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+		SequenceElement{
+			Element: Element{
+				Name: "READ_FLAG",
+				Type: "xsd:string",
+			},
+			MinOccurs: 0,
+			MaxOccurs: 1,
+		},
+	}
+
+	if !reflect.DeepEqual(elements, expectedElements) {
+		t.Errorf("expect %v but was %v", expectedElements, elements)
+	}
+}
