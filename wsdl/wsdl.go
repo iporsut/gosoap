@@ -10,7 +10,6 @@ type Part struct {
 }
 
 type Message struct {
-	XMLName xml.Name `xml:"message"`
 	Name    string   `xml:"name,attr"`
 	Part    Part     `xml:"part"`
 }
