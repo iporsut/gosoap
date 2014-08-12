@@ -166,7 +166,7 @@ func testUnmarshalSchema(t *testing.T, definition Definition) {
 }
 
 func testUnmarshalElement(t *testing.T, definition Definition) {
-	var elements []Element = definition.Types.Schema.Elements
+	var elements []SchemaElement = definition.Types.Schema.Elements
 
 	if len(elements) != 3 {
 		t.Errorf("expect 3 but was %d", len(elements))
@@ -177,5 +177,17 @@ func testUnmarshalElement(t *testing.T, definition Definition) {
 		if elements[i].Name != names[i] {
 			t.Errorf("expect %s but was %s", names[i], elements[i].Name)
 		}
+	}
+}
+
+func testUnmarshalComplexTypeInElement(t *testing.T, definition Definition) {
+	var element SequenceElement = definition.Types.Schema.Elements[0].ComplexType.Sequence.Element
+
+	if element.Name != "inbuf" {
+		t.Errorf("expect \"inbuf\" but was %s", element.Name)
+	}
+
+	if element.Type != "tuxtype:fml32_ReadRetlWS_In" {
+		t.Errorf("expect \"tuxtype:fml32_ReadRetlWS_In\" but was %s", element.Type)
 	}
 }

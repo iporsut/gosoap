@@ -41,13 +41,31 @@ type PortType struct {
 
 type Element struct {
 	Name string `xml:"name,attr"`
+	Type string `xml:"type,attr"`
+}
+
+type SequenceElement struct {
+	Element
+}
+
+type Sequence struct {
+	Element SequenceElement `xml:"element"`
+}
+
+type ComplexType struct {
+	Sequence Sequence `xml:"sequence"`
+}
+
+type SchemaElement struct {
+	Element
+	ComplexType ComplexType `xml:"complexType"`
 }
 
 type Schema struct {
-	AttributeFormDefault string    `xml:"attributeFormDefault,attr"`
-	ElementFormDefault   string    `xml:"elementFormDefault,attr"`
-	TargetNamespace      string    `xml:"targetNamespace,attr"`
-	Elements             []Element `xml:"element"`
+	AttributeFormDefault string          `xml:"attributeFormDefault,attr"`
+	ElementFormDefault   string          `xml:"elementFormDefault,attr"`
+	TargetNamespace      string          `xml:"targetNamespace,attr"`
+	Elements             []SchemaElement `xml:"element"`
 }
 
 type Types struct {
