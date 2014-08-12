@@ -53,6 +53,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalComplexTypeInSchema),
 		testCase(testUnmarshalService),
 		testCase(testUnmarshalPortInService),
+		testCase(testUnmarshalAddress),
 	}
 
 	for _, test := range tests {
@@ -282,5 +283,13 @@ func testUnmarshalPortInService(t *testing.T, definition Definition) {
 
 	if port.Name != "INReadRetlWS_Endpoint" {
 		t.Errorf("expect \"INReadRetlWS_Endpoint\" but was %s", port.Name)
+	}
+}
+
+func testUnmarshalAddress(t *testing.T, definition Definition) {
+	var address = definition.Service.Port.Address
+
+	if address.Location != "http://athena13:9582/ReadRetlWS" {
+		t.Errorf("expect \"http://athena13:9582/ReadRetlWS\" but was %s", address.Location)
 	}
 }
