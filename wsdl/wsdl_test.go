@@ -58,6 +58,7 @@ func TestUnmarshal(t *testing.T) {
 		testCase(testUnmarshalSOAPBinding),
 		testCase(testUnmarshalOperationBinding),
 		testCase(testUnmarshalBodyInInputOperation),
+		testCase(testUnmarshalBodyInOutputOperation),
 	}
 
 	for _, test := range tests {
@@ -332,6 +333,14 @@ func testUnmarshalOperationBinding(t *testing.T, definition Definition) {
 
 func testUnmarshalBodyInInputOperation(t *testing.T, definition Definition) {
 	var body SOAPBody = definition.Binding.Operation.Input.Body
+
+	if body.Use != "literal" {
+		t.Errorf("expect \"literal\" but was %s", body.Use)
+	}
+}
+
+func testUnmarshalBodyInOutputOperation(t *testing.T, definition Definition) {
+	var body SOAPBody = definition.Binding.Operation.Output.Body
 
 	if body.Use != "literal" {
 		t.Errorf("expect \"literal\" but was %s", body.Use)

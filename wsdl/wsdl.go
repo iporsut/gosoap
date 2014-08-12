@@ -19,16 +19,20 @@ type SOAPBody struct {
 }
 
 type Operation struct {
-	Message string   `xml:"message,attr"`
-	Body    SOAPBody `xml:"body"`
+	Message string `xml:"message,attr"`
+}
+
+type IOOperation struct {
+	Operation
+	Body SOAPBody `xml:"body"`
 }
 
 type InputOperation struct {
-	Operation
+	IOOperation
 }
 
 type OutputOperation struct {
-	Operation
+	IOOperation
 }
 
 type FaultOperation struct {
