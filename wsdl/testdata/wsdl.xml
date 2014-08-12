@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tuxtype="urn:pack.INReadRetlWS_typedef.salt11" xmlns:tns="urn:INReadRetlWS.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="INReadRetlWS" targetNamespace="urn:INReadRetlWS.wsdl">
+	<wsdl:documentation>Generated at 08-11-2014 16:33:06:253</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:pack.INReadRetlWS_typedef.salt11">
+			<xsd:element name="ReadRetlWS">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inbuf" type="tuxtype:fml32_ReadRetlWS_In"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadRetlWS_In">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="USER_CODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_RETL__RETL_CODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_RETL__RETL_NAME" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_RETL__SHOP_NAME" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="RD_RETL__RETL_STTS" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="READ_FLAG" type="xsd:short"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="ReadRetlWSResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="outbuf" type="tuxtype:fml32_ReadRetlWS_Out"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadRetlWS_Out">
+				<xsd:sequence>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__RETL_CODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__RETL_NAME" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__SHOP_NAME" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__RETL_STTS" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__CRTD_DTTM" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__CRTD_BY" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__LAST_CHNG_DTTM" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="9999" minOccurs="0" name="RD_RETL__LAST_CHNG_BY" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="TBL_OCCR" type="xsd:long"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="ReadRetlWSFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="errbuf" type="tuxtype:fml32_ReadRetlWS_Err"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="fml32_ReadRetlWS_Err">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="MESSAGE_TEXT_ENG" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="MESSAGE_TEXT_THA" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="MESSAGE_SQLCODE" type="xsd:string"></xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="MESSAGE_NATURE" type="xsd:long"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="ReadRetlWSInput">
+		<wsdl:part element="tuxtype:ReadRetlWS" name="FML32"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="ReadRetlWSOutput">
+		<wsdl:part element="tuxtype:ReadRetlWSResponse" name="FML32"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="ReadRetlWSError">
+		<wsdl:part element="tuxtype:ReadRetlWSFault" name="FML32"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="INReadRetlWS_PortType">
+		<wsdl:operation name="ReadRetlWS">
+			<wsdl:input message="tns:ReadRetlWSInput"></wsdl:input>
+			<wsdl:output message="tns:ReadRetlWSOutput"></wsdl:output>
+			<wsdl:fault message="tns:ReadRetlWSError" name="ReadRetlWSError"></wsdl:fault>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="INReadRetlWS_Binding" type="tns:INReadRetlWS_PortType">
+		<soap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap11:binding>
+		<wsdl:operation name="ReadRetlWS">
+			<soap11:operation soapAction="ReadRetlWS" style="document"></soap11:operation>
+			<wsdl:input>
+				<soap11:body use="literal"></soap11:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap11:body use="literal"></soap11:body>
+			</wsdl:output>
+			<wsdl:fault name="ReadRetlWSError">
+				<soap11:fault name="ReadRetlWSError" use="literal"></soap11:fault>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="TuxedoWebService">
+		<wsdl:port binding="tns:INReadRetlWS_Binding" name="INReadRetlWS_Endpoint">
+			<soap11:address location="http://athena13:9582/ReadRetlWS"></soap11:address>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>
