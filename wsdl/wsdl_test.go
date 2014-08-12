@@ -25,7 +25,7 @@ func testUnmarshal(t *testing.T, b []byte) Definition {
 }
 
 func testUnmarshalFromFile(t *testing.T, filename string) (definition Definition) {
-	b := testRead(t, "./testdata/wsdl.xml")
+	b := testRead(t, filename)
 	definition = testUnmarshal(t, b)
 	return
 }
