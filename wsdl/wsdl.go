@@ -22,10 +22,16 @@ type OutputOperation struct {
 	Message string `xml:"message,attr"`
 }
 
+type FaultOperation struct {
+	Message string `xml:"message,attr"`
+	Name    string `xml:"name,attr"`
+}
+
 type WSDLOperation struct {
 	Name   string          `xml:"name,attr"`
 	Input  InputOperation  `xml:"input"`
 	Output OutputOperation `xml:"output"`
+	Fault  FaultOperation  `xml:"fault"`
 }
 
 type PortType struct {
